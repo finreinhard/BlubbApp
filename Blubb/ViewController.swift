@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) {
             (didAllow, error) in
             if !didAllow {
-                let alert = UIAlertController(title: "Notifications abgelehnt", message: "Durch die Ablehnung steht die App nicht im Volle Funktionsumfang zur Verfügung.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Notifications abgelehnt", message: "Durch die Ablehnung steht die App nicht im vollen Funktionsumfang zur Verfügung.", preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: NSLocalizedString("Beheben", comment: "Default action"), style: .default) { _ in
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
