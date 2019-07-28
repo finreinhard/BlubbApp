@@ -34,6 +34,9 @@ class NewActivityViewController: UIViewController {
         notificationContent.body = "Prima! Du hast gut was geschafft. Jetzt wird es aber Zeit für eine Pause."
         notificationContent.sound = .default
         
+        // Clear Notifications before queueing new one
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
         let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeIntervalSinceNow: 3600))
         let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "Break Notification", content: notificationContent, trigger: trigger))
@@ -43,6 +46,8 @@ class NewActivityViewController: UIViewController {
     
     @IBAction func handleEndButtonClick(_ sender: UIButton) {
         let endDate = Date()
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         let nameAlert = UIAlertController(title: "Aktivität abgeschlossen", message: "Super! Jetzt brauchen wir nur noch einen Namen", preferredStyle: .alert)
         
