@@ -37,6 +37,8 @@ class NewActivityViewController: UIViewController {
         let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeIntervalSinceNow: 3600))
         let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "Break Notification", content: notificationContent, trigger: trigger))
+        
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
     @IBAction func handleEndButtonClick(_ sender: UIButton) {
@@ -46,9 +48,11 @@ class NewActivityViewController: UIViewController {
         
         nameAlert.addTextField()
         nameAlert.addAction(UIAlertAction(title: NSLocalizedString("Löschen", comment: "Lösche die Aktivität"), style: .destructive){ _ in
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
             self.navigateToMainScreen()
         })
         nameAlert.addAction(UIAlertAction(title: NSLocalizedString("Speichern", comment: "Speichere die Aktivität"), style: .default){ _ in
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
             let description = nameAlert.textFields![0].text!
         })
         
