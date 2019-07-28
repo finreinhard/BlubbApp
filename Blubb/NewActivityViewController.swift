@@ -8,8 +8,33 @@
 
 import UIKit
 import UserNotifications
+import EventKit
+import EventKitUI
 
-class NewActivityViewController: UIViewController {
+class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
+    
+    func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
+        controller.dismiss(animated: true)
+        
+        if action == .saved {
+            self.navigateToMainScreen()
+            
+            let notificationContent = UNMutableNotificationContent()
+            
+            notificationContent.title = "Genug Pause!"
+            notificationContent.body = "Ran an den Speck! Weiter gehts mit Karachoooo!"
+            notificationContent.sound = .default
+            
+            // Clear Notifications before queueing new one
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            
+            let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeIntervalSinceNow: 1800))
+            let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
+            UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "Break Over Notification", content: notificationContent, trigger: trigger))
+            
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
+    }
     
     @IBOutlet weak var counter: UILabel!
     let startDate = Date()
@@ -52,13 +77,37 @@ class NewActivityViewController: UIViewController {
         let nameAlert = UIAlertController(title: "Aktivität abgeschlossen", message: "Super! Jetzt brauchen wir nur noch einen Namen", preferredStyle: .alert)
         
         nameAlert.addTextField()
-        nameAlert.addAction(UIAlertAction(title: NSLocalizedString("Löschen", comment: "Lösche die Aktivität"), style: .destructive){ _ in
+        nameAlert.addAction(UIAlertAction(title: "Löschen", style: .destructive){ _ in
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             self.navigateToMainScreen()
         })
-        nameAlert.addAction(UIAlertAction(title: NSLocalizedString("Speichern", comment: "Speichere die Aktivität"), style: .default){ _ in
+        nameAlert.addAction(UIAlertAction(title: "Speichern", style: .default){ _ in
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             let description = nameAlert.textFields![0].text!
+            
+            let eventStore = EKEventStore()
+            
+            eventStore.requestAccess(to: .event){ granted, error in
+                if granted && error == nil {
+                    let event = EKEvent(eventStore: eventStore)
+                    event.title = description
+                    event.startDate = self.startDate
+                    event.endDate = endDate
+                    event.notes = "Created with Blubb."
+                    event.calendar = eventStore.defaultCalendarForNewEvents
+                    
+                    // try? eventStore.save(event, span: .thisEvent)
+                    
+                    DispatchQueue.main.async {
+                        let eventViewController = EKEventEditViewController()
+                        eventViewController.event = event
+                        eventViewController.eventStore = eventStore
+                        eventViewController.editViewDelegate = self
+                        
+                        self.present(eventViewController, animated: true)
+                    }
+                }
+            }
         })
         
         self.present(nameAlert, animated: true){
@@ -67,8 +116,7 @@ class NewActivityViewController: UIViewController {
     }
     
     func navigateToMainScreen() {
-        self.navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
     
 }
