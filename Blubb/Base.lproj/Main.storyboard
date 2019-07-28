@@ -61,7 +61,7 @@
         <!--New Activity View Controller-->
         <scene sceneID="1to-M0-V9y">
             <objects>
-                <viewController id="afJ-rV-a7d" customClass="NewActivityViewController" customModule="Blubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newActivity" id="afJ-rV-a7d" customClass="NewActivityViewController" customModule="Blubb" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wd1-ni-z0O">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
