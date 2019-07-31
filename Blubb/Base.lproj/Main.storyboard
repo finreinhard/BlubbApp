@@ -34,7 +34,7 @@
                                     <constraint firstAttribute="height" constant="50" id="eTH-He-u8E"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Neue Aktivität">
+                                <state key="normal" title="New Activity">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -82,7 +82,7 @@
                                     <constraint firstAttribute="height" constant="50" id="dkc-mu-8Y8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Beenden">
+                                <state key="normal" title="Stop">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>

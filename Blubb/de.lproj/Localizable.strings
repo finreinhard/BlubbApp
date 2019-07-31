@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  Blubb
+
+  Created by Fin Reinhard on 31.07.19.
+  Copyright © 2019 Anguli Networks. All rights reserved.
+*/
+"Notifications declined" = "Benachrichtigungen abgelehnt";
+"Due the rejection, the app is not available in full functionality." = "Durch die Ablehnung steht die App nicht im vollen Funktionsumfang zur Verfügung.";
+"Fix" = "Beheben";
+"Break over" = "Pause vorbei";
+"Back to work! You can do this!" = "Zurück an die Arbeit. Du schaffst das!";
+"Take a Break" = "Mach eine Pause";
+"Nice! You have done a lot. Now it is time for a 30 minutes break." = "Perfekt! Du hast einiges geschafft. Jetzt wird es Zeit für eine 30 Minütige Pause.";
+"Activity Done" = "Aktivität abgeschlossen";
+"Good Job! Now we need a name." = "Gute Arbeit, jetzt brauchen wir nur noch einen Namen.";
+"Delete" = "Löschen";
+"Save" = "Speichern";
+"Created with Blubb." = "Erstellt mit Blubb.";

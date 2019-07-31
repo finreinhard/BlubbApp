@@ -21,8 +21,8 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
             
             let notificationContent = UNMutableNotificationContent()
             
-            notificationContent.title = "Genug Pause!"
-            notificationContent.body = "Ran an den Speck! Weiter gehts mit Karachoooo!"
+            notificationContent.title = NSLocalizedString("Break over", comment: "Notification title for break end")
+            notificationContent.body = NSLocalizedString("Back to work! You can do this!", comment: "Notification body for break end")
             notificationContent.sound = .default
             
             // Clear Notifications before queueing new one
@@ -55,8 +55,8 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         
         let notificationContent = UNMutableNotificationContent()
         
-        notificationContent.title = "Mach eine Pause"
-        notificationContent.body = "Prima! Du hast gut was geschafft. Jetzt wird es aber Zeit für eine Pause."
+        notificationContent.title = NSLocalizedString("Take a Break", comment: "Notification title for break start")
+        notificationContent.body = NSLocalizedString("Nice! You have done a lot. Now it is time for a 30 minutes break.", comment: "Notification body for break start")
         notificationContent.sound = .default
         
         // Clear Notifications before queueing new one
@@ -74,14 +74,14 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
-        let nameAlert = UIAlertController(title: "Aktivität abgeschlossen", message: "Super! Jetzt brauchen wir nur noch einen Namen", preferredStyle: .alert)
+        let nameAlert = UIAlertController(title: NSLocalizedString("Activity Done", comment: "Save Activity Alert title"), message: NSLocalizedString("Good Job! Now we need a name.", comment: "Save Activity Alert body"), preferredStyle: .alert)
         
         nameAlert.addTextField()
-        nameAlert.addAction(UIAlertAction(title: "Löschen", style: .destructive){ _ in
+        nameAlert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete the activity"), style: .destructive){ _ in
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             self.navigateToMainScreen()
         })
-        nameAlert.addAction(UIAlertAction(title: "Speichern", style: .default){ _ in
+        nameAlert.addAction(UIAlertAction(title: NSLocalizedString("Save", comment: "Save the activity"), style: .default){ _ in
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             let description = nameAlert.textFields![0].text!
             
@@ -93,10 +93,8 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
                     event.title = description
                     event.startDate = self.startDate
                     event.endDate = endDate
-                    event.notes = "Created with Blubb."
+                    event.notes = NSLocalizedString("Created with Blubb.", comment: "Event note")
                     event.calendar = eventStore.defaultCalendarForNewEvents
-                    
-                    // try? eventStore.save(event, span: .thisEvent)
                     
                     DispatchQueue.main.async {
                         let eventViewController = EKEventEditViewController()
