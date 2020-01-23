@@ -61,7 +61,7 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
             let time = Int(Date().timeIntervalSince(self.startDate))
             self.counter.text = String(format: "%02d:%02d", time / 60, time % 60)
             
-            if time >= self.timerMinutes * 60 {
+            if time > self.timerMinutes * 60 {
                 progressView.backgroundColor = .systemGreen
             } else {
                 progressView.frame = self.getProgressFrame(percentageDone: CGFloat(time) / (CGFloat(self.timerMinutes) * 60.0))
