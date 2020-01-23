@@ -13,6 +13,11 @@ import EventKitUI
 
 class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
     
+    @IBOutlet weak var counter: UILabel!
+    let startDate = Date()
+    var timerStopped = false
+    public var timerMinutes = 60
+    
     func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
         controller.dismiss(animated: true)
         
@@ -36,13 +41,16 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         }
     }
     
-    @IBOutlet weak var counter: UILabel!
-    let startDate = Date()
-    var timerStopped = false
-    public var timerMinutes = 60
+    func getProgressFrame(percentageDone: CGFloat) -> CGRect {
+        return CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height * percentageDone)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let progressView = UIView(frame: getProgressFrame(percentageDone: 0))
+        progressView.backgroundColor = .systemBlue
+        self.view.insertSubview(progressView, at: 0)
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
             if self.timerStopped {
@@ -52,6 +60,12 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
             
             let time = Int(Date().timeIntervalSince(self.startDate))
             self.counter.text = String(format: "%02d:%02d", time / 60, time % 60)
+            
+            if time >= self.timerMinutes * 60 {
+                progressView.backgroundColor = .systemGreen
+            } else {
+                progressView.frame = self.getProgressFrame(percentageDone: CGFloat(time) / (CGFloat(self.timerMinutes) * 60.0))
+            }
         }
         
         let notificationContent = UNMutableNotificationContent()
