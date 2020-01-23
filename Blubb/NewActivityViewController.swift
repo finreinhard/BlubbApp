@@ -39,6 +39,7 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
     @IBOutlet weak var counter: UILabel!
     let startDate = Date()
     var timerStopped = false
+    public var timerMinutes = 60
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,7 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         // Clear Notifications before queueing new one
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
-        let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeIntervalSinceNow: 3600))
+        let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeIntervalSinceNow: TimeInterval(self.timerMinutes * 60)))
         let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "Break Notification", content: notificationContent, trigger: trigger))
         

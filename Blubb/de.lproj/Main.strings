@@ -2,14 +2,20 @@
 /* Class = "UILabel"; text = "Blubb"; ObjectID = "3qY-Dm-ecf"; */
 "3qY-Dm-ecf.text" = "Blubb";
 
+/* Class = "UITextField"; text = "60"; ObjectID = "75F-M2-z6C"; */
+"75F-M2-z6C.text" = "60";
+
 /* Class = "UIButton"; normalTitle = "New Activity"; ObjectID = "GwK-Lw-3CR"; */
 "GwK-Lw-3CR.normalTitle" = "Neue Aktivität";
+
+/* Class = "UILabel"; text = "Minutes"; ObjectID = "KPb-WV-A1c"; */
+"KPb-WV-A1c.text" = "Minuten";
 
 /* Class = "UILabel"; text = "00:00"; ObjectID = "Pi5-bL-bxd"; */
 "Pi5-bL-bxd.text" = "00:00";
 
-/* Class = "UILabel"; text = "Blubb"; ObjectID = "UPh-4V-35T"; */
-"UPh-4V-35T.text" = "Blubb";
+/* Class = "UILabel"; text = "New Activity"; ObjectID = "UPh-4V-35T"; */
+"UPh-4V-35T.text" = "Neue Aktivität";
 
 /* Class = "UIButton"; normalTitle = "Stop"; ObjectID = "mqZ-LE-bCV"; */
 "mqZ-LE-bCV.normalTitle" = "Beenden";
