@@ -48,9 +48,12 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let progressView = UIView(frame: getProgressFrame(percentageDone: 0))
-        progressView.backgroundColor = .systemBlue
-        self.view.insertSubview(progressView, at: 0)
+        self.view.backgroundColor = .clear
+        let backgroundGradient = CAGradientLayer()
+        backgroundGradient.colors = [UIColor.systemBlue.cgColor, UIColor.systemGreen.cgColor]
+        backgroundGradient.frame = self.view.bounds
+        backgroundGradient.locations = [1, 1]
+        self.view.layer.insertSublayer(backgroundGradient, at: 0)
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
             if self.timerStopped {
@@ -58,13 +61,18 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
                 return
             }
             
+            if !self.view.bounds.equalTo(backgroundGradient.frame) {
+                backgroundGradient.frame = self.view.bounds
+            }
+
             let time = Int(Date().timeIntervalSince(self.startDate))
             self.counter.text = String(format: "%02d:%02d", time / 60, time % 60)
             
             if time > self.timerMinutes * 60 {
-                progressView.backgroundColor = .systemGreen
+                backgroundGradient.locations = [0, 0]
             } else {
-                progressView.frame = self.getProgressFrame(percentageDone: CGFloat(time) / (CGFloat(self.timerMinutes) * 60.0))
+                let percentage = NSNumber(value: 1 - Double(time) / (Double(self.timerMinutes) * 60.0))
+                backgroundGradient.locations = [percentage, percentage]
             }
         }
         
