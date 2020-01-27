@@ -6,8 +6,9 @@
   Copyright © 2019 Anguli Networks. All rights reserved.
 */
 "Notifications declined" = "Benachrichtigungen abgelehnt";
-"Due the rejection, the app is not available in full functionality." = "Durch die Ablehnung steht die App nicht im vollen Funktionsumfang zur Verfügung.";
-"Fix" = "Beheben";
+"If you wan't to get informed about your activities, you should allow notifications." = "Du möchtest über Deine Aktivitäten benachrichtigt werden, dann aktiviere die Benachrichtigungen.";
+"Ignore" = "Ignorieren";
+"Grant access" = "Aktivieren";
 "Break over" = "Pause vorbei";
 "Back to work! You can do this!" = "Zurück an die Arbeit. Du schaffst das!";
 "Take a Break" = "Mach eine Pause";

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UserNotifications
 import EventKit
 import EventKitUI
 
@@ -15,6 +14,7 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
     
     @IBOutlet weak var counter: UILabel!
     let defaults = UserDefaults.standard
+    var notificationController: NotificationController? = nil
     var timerStopped = false
     public var timerMinutes = 60
     public var startDate = Date()
@@ -25,29 +25,16 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         if action == .saved {
             self.navigateToMainScreen()
             
-            let notificationContent = UNMutableNotificationContent()
-            
-            notificationContent.title = NSLocalizedString("Break over", comment: "Notification title for break end")
-            notificationContent.body = NSLocalizedString("Back to work! You can do this!", comment: "Notification body for break end")
-            notificationContent.sound = .default
-            
-            // Clear Notifications before queueing new one
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            
-            let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeIntervalSinceNow: 1800))
-            let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
-            UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "Break Over Notification", content: notificationContent, trigger: trigger))
+            self.notificationController!.sendBreakOverIn30MinutesNotification()
             
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
     
-    func getProgressFrame(percentageDone: CGFloat) -> CGRect {
-        return CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height * percentageDone)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.notificationController = NotificationController(viewController: self)
         
         let backgroundGradient = CAGradientLayer()
         backgroundGradient.colors = [UIColor.systemBlue.cgColor, UIColor.systemGreen.cgColor]
@@ -82,18 +69,7 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
             }
         }
         
-        let notificationContent = UNMutableNotificationContent()
-        
-        notificationContent.title = NSLocalizedString("Take a Break", comment: "Notification title for break start")
-        notificationContent.body = NSLocalizedString("Nice! You have done a lot. Now it is time for a 30 minutes break.", comment: "Notification body for break start")
-        notificationContent.sound = .default
-        
-        // Clear Notifications before queueing new one
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        
-        let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeInterval: TimeInterval(self.timerMinutes * 60), since: self.startDate))
-        let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
-        UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "Break Notification", content: notificationContent, trigger: trigger))
+        self.notificationController!.sendTakeABreakNotification(in: self.timerMinutes, from: self.startDate)
         
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }

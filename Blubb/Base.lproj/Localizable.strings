@@ -6,8 +6,9 @@
   Copyright © 2019 Anguli Networks. All rights reserved.
 */
 "Notifications declined" = "Notifications declined";
-"Due the rejection, the app is not available in full functionality." = "Due the rejection, the app is not available in full functionality.";
-"Fix" = "Fix";
+"If you wan't to get informed about your activities, you should allow notifications." = "If you wan't to get informed about your activities, you should allow notifications.";
+"Ignore" = "Ignore";
+"Grant access" = "Grant access";
 "Break over" = "Break over";
 "Back to work! You can do this!" = "Back to work! You can do this!";
 "Take a Break" = "Take a Break";
