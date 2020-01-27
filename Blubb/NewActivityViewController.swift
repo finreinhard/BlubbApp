@@ -66,7 +66,13 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
             }
 
             let time = Int(Date().timeIntervalSince(self.startDate))
-            self.counter.text = String(format: "%02d:%02d", time / 60, time % 60)
+            
+            if time >= 5 * 60 {
+                self.counter.text = String.localizedStringWithFormat(NSLocalizedString("%d minutes", comment: "Current passed minutes of the activity."), time / 60)
+            } else {
+                self.counter.text = String(format: "%02d:%02d", time / 60, time % 60)
+            }
+            
             
             if time > self.timerMinutes * 60 {
                 backgroundGradient.locations = [0, 0]
