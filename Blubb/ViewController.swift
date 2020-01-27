@@ -39,8 +39,6 @@ class ViewController: UIViewController {
             self.minutesInput.text = minutes
             
             if let currentStartDate = defaults.string(forKey: defaultsKeys.currentActivityStartDate) {
-                print(currentStartDate)
-                print(Date(timeIntervalSince1970: TimeInterval(Double(currentStartDate)!)))
                 self.showActivityModal(duration: Int(minutes)!, startedAt: Date(timeIntervalSince1970: TimeInterval(Double(currentStartDate)!)))
             }
         }
