@@ -10,4 +10,5 @@ import Foundation
 
 struct defaultsKeys {
     static let minutesInput = "minutesInput"
+    static let currentActivityStartDate = "currentActivityStartDate"
 }

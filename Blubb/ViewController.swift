@@ -18,10 +18,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        if let minutes = defaults.string(forKey: defaultsKeys.minutesInput) {
-            self.minutesInput.text = minutes
-        }
-        
         let notificationCenter = UNUserNotificationCenter.current()
         
         notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) {
@@ -37,6 +33,19 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let minutes = defaults.string(forKey: defaultsKeys.minutesInput) {
+            self.minutesInput.text = minutes
+            
+            if let currentStartDate = defaults.string(forKey: defaultsKeys.currentActivityStartDate) {
+                print(currentStartDate)
+                print(Date(timeIntervalSince1970: TimeInterval(Double(currentStartDate)!)))
+                self.showActivityModal(duration: Int(minutes)!, startedAt: Date(timeIntervalSince1970: TimeInterval(Double(currentStartDate)!)))
+            }
+        }
+    }
+    
     @IBAction func onMinutesChanged(_ sender: Any) {
         var color = UIColor.systemBlue
         
@@ -58,20 +67,27 @@ class ViewController: UIViewController {
     
     func startNewActivity() {
         if let minutes = Int(self.minutesInput.text!) {
-        
+
+            let startDate = Date()
+            
             defaults.set(self.minutesInput.text!, forKey: defaultsKeys.minutesInput)
+            defaults.set("\(startDate.timeIntervalSince1970)", forKey: defaultsKeys.currentActivityStartDate)
             
-            self.modalTransitionStyle = .coverVertical
-            
-            self.modalPresentationStyle = .automatic
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "newActivity") as! NewActivityViewController
-            
-            controller.timerMinutes = minutes
-            
-            self.present(controller, animated: true, completion: nil)
+            self.showActivityModal(duration: minutes, startedAt: startDate)
         }
+    }
+    
+    func showActivityModal(duration minutes: Int, startedAt startDate: Date) {
+        self.modalTransitionStyle = .coverVertical
+        self.modalPresentationStyle = .automatic
+        
+        let storyboard = self.storyboard!
+        let controller = storyboard.instantiateViewController(withIdentifier: "newActivity") as! NewActivityViewController
+        
+        controller.timerMinutes = minutes
+        controller.startDate = startDate
+        
+        self.present(controller, animated: true, completion: nil)
     }
 }
 

@@ -14,9 +14,10 @@ import EventKitUI
 class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
     
     @IBOutlet weak var counter: UILabel!
-    let startDate = Date()
+    let defaults = UserDefaults.standard
     var timerStopped = false
     public var timerMinutes = 60
+    public var startDate = Date()
     
     func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
         controller.dismiss(animated: true)
@@ -48,7 +49,6 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .clear
         let backgroundGradient = CAGradientLayer()
         backgroundGradient.colors = [UIColor.systemBlue.cgColor, UIColor.systemGreen.cgColor]
         backgroundGradient.frame = self.view.bounds
@@ -91,7 +91,7 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         // Clear Notifications before queueing new one
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
-        let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeIntervalSinceNow: TimeInterval(self.timerMinutes * 60)))
+        let notificationDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: Date(timeInterval: TimeInterval(self.timerMinutes * 60), since: self.startDate))
         let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: false)
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "Break Notification", content: notificationContent, trigger: trigger))
         
@@ -139,6 +139,8 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         
         self.present(nameAlert, animated: true){
             self.timerStopped = true
+            
+            self.defaults.removeObject(forKey: defaultsKeys.currentActivityStartDate)
         }
     }
     
