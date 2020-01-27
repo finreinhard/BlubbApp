@@ -12,10 +12,15 @@ import UserNotifications
 class ViewController: UIViewController {
     
     @IBOutlet weak var minutesInput: UITextField!
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        if let minutes = defaults.string(forKey: defaultsKeys.minutesInput) {
+            self.minutesInput.text = minutes
+        }
         
         let notificationCenter = UNUserNotificationCenter.current()
         
@@ -54,6 +59,8 @@ class ViewController: UIViewController {
     func startNewActivity() {
         if let minutes = Int(self.minutesInput.text!) {
         
+            defaults.set(self.minutesInput.text!, forKey: defaultsKeys.minutesInput)
+            
             self.modalTransitionStyle = .coverVertical
             
             self.modalPresentationStyle = .automatic
