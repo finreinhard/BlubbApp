@@ -113,6 +113,7 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         
         self.present(nameAlert, animated: true){
             self.timerStopped = true
+            self.timerView?.stopTimer()
             
             self.defaults.removeObject(forKey: defaultsKeys.currentActivityStartDate)
         }
