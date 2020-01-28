@@ -10,10 +10,12 @@ import UIKit
 
 class TimerView: UIView {
     
+    let dateFormatter = DateComponentsFormatter()
+    let remainingDateFormatter = DateComponentsFormatter()
     var timerStopped = false
     let startDate: Date
     let plannedMinutes: Int
-    var currentMode = Mode.REMAINING
+    var currentMode = Mode.ELAPSED
     
     let timeLabel: UILabel
     let additionalTimeLabel: UILabel
@@ -42,6 +44,8 @@ class TimerView: UIView {
         
         super.init(frame: frame)
         
+        self.configureDateFormatter()
+        
         self.buildView()
         
         self.addSubview(self.timeLabel)
@@ -56,6 +60,17 @@ class TimerView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureDateFormatter() {
+        self.dateFormatter.unitsStyle = .full
+        self.dateFormatter.allowedUnits = [.minute, .second]
+        self.dateFormatter.maximumUnitCount = 1
+        
+        self.remainingDateFormatter.unitsStyle = self.dateFormatter.unitsStyle
+        self.remainingDateFormatter.allowedUnits = self.dateFormatter.allowedUnits
+        self.remainingDateFormatter.maximumUnitCount = self.dateFormatter.maximumUnitCount
+        self.remainingDateFormatter.includesTimeRemainingPhrase = true
     }
     
     public func startTimer() {
@@ -102,32 +117,22 @@ class TimerView: UIView {
     }
     
     func updateView() {
-        let secondsElapsed = Int(Date().timeIntervalSince(self.startDate))
-        
         switch self.currentMode {
         case .ELAPSED:
-            self.timeLabel.text = self.formatSeconds(secondsElapsed)
+            self.timeLabel.text = self.dateFormatter.string(from: self.startDate, to: Date())
             break
         case .REMAINING:
-            let remaining = self.plannedMinutes * 60 - secondsElapsed
+            let remaining = Double(self.plannedMinutes * 60) - Date().timeIntervalSince(self.startDate)
             
             if remaining >= 0 {
-                self.timeLabel.text = self.formatSeconds(remaining)
+                self.timeLabel.text = self.remainingDateFormatter.string(from: remaining)
             } else {
                 self.timeLabel.textColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.7)
-                self.timeLabel.text = self.formatSeconds(self.plannedMinutes * 60, converToMinutesAt: 0)
-                self.additionalTimeLabel.text = "+ \(self.formatSeconds(remaining * -1))"
+                self.timeLabel.text = self.dateFormatter.string(from: Double(self.plannedMinutes * 60))
+                self.additionalTimeLabel.text = "+ \(self.dateFormatter.string(from: remaining * -1) ?? "ERROR")"
             }
             break
         }
-    }
-    
-    func formatSeconds(_ seconds: Int, converToMinutesAt: Int = 5) -> String {
-        if seconds >= converToMinutesAt * 60 {
-            return String.localizedStringWithFormat(NSLocalizedString("%d minutes", comment: "Current passed minutes of the activity."), seconds / 60)
-        }
-        
-        return String(format: "%02d:%02d", seconds / 60, seconds % 60)
     }
     
     public func stopTimer() {
