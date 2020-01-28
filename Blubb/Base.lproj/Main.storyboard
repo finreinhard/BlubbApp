@@ -121,33 +121,18 @@
                                     <action selector="handleEndButtonClick:" destination="afJ-rV-a7d" eventType="touchUpInside" id="x2o-Sy-UiX"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pi5-bL-bxd">
-                                <rect key="frame" x="20" y="200" width="374" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="4bL-yz-RY8"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Pi5-bL-bxd" firstAttribute="top" secondItem="UPh-4V-35T" secondAttribute="bottom" constant="100" id="MhF-qf-Iac"/>
                             <constraint firstItem="Pm5-SE-QVj" firstAttribute="trailing" secondItem="mqZ-LE-bCV" secondAttribute="trailing" constant="20" id="Sfw-4Q-XNC"/>
                             <constraint firstItem="UPh-4V-35T" firstAttribute="top" secondItem="Pm5-SE-QVj" secondAttribute="top" constant="16" id="SkJ-Qu-Aii"/>
                             <constraint firstItem="mqZ-LE-bCV" firstAttribute="leading" secondItem="Pm5-SE-QVj" secondAttribute="leading" constant="20" id="XaU-1r-KGy"/>
                             <constraint firstItem="mqZ-LE-bCV" firstAttribute="bottom" secondItem="Pm5-SE-QVj" secondAttribute="bottom" constant="-20" id="goL-If-4xy"/>
-                            <constraint firstItem="Pm5-SE-QVj" firstAttribute="trailing" secondItem="Pi5-bL-bxd" secondAttribute="trailing" constant="20" id="j8o-1l-pgV"/>
-                            <constraint firstItem="Pi5-bL-bxd" firstAttribute="leading" secondItem="Pm5-SE-QVj" secondAttribute="leading" constant="20" id="ncG-Mw-SuG"/>
                             <constraint firstItem="Pm5-SE-QVj" firstAttribute="trailing" secondItem="UPh-4V-35T" secondAttribute="trailing" constant="20" id="tp3-3k-89V"/>
                             <constraint firstItem="UPh-4V-35T" firstAttribute="leading" secondItem="Pm5-SE-QVj" secondAttribute="leading" constant="20" id="yzh-4r-yk4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Pm5-SE-QVj"/>
                     </view>
-                    <connections>
-                        <outlet property="counter" destination="Pi5-bL-bxd" id="gw0-l1-ISe"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xF8-GI-iEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

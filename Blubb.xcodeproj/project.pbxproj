@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD34C08E22F1ABF1008CFDD6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD34C08C22F1ABF1008CFDD6 /* Localizable.strings */; };
+		BD5AA50923E08D65009E531C /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5AA50823E08D65009E531C /* TimerView.swift */; };
 		BD628D1523DF774900ED05CA /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD628D1423DF774900ED05CA /* DefaultsKeys.swift */; };
 		BD628D1723DF7F7C00ED05CA /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD628D1623DF7F7C00ED05CA /* NotificationController.swift */; };
 		BD8CAC3D22EDCA5B00F311D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CAC3C22EDCA5B00F311D5 /* AppDelegate.swift */; };
@@ -24,6 +25,7 @@
 		BD34C08D22F1ABF1008CFDD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BD34C09022F1AC1C008CFDD6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BD42170223D866F5006D8580 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		BD5AA50823E08D65009E531C /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		BD628D1423DF774900ED05CA /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		BD628D1623DF7F7C00ED05CA /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		BD8CAC3922EDCA5B00F311D5 /* Blubb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blubb.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 				BD8CAC5122EDD5A300F311D5 /* NewActivityViewController.swift */,
 				BD34C08C22F1ABF1008CFDD6 /* Localizable.strings */,
 				BD628D1623DF7F7C00ED05CA /* NotificationController.swift */,
+				BD5AA50823E08D65009E531C /* TimerView.swift */,
 			);
 			path = Blubb;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD5AA50923E08D65009E531C /* TimerView.swift in Sources */,
 				BD628D1723DF7F7C00ED05CA /* NotificationController.swift in Sources */,
 				BD628D1523DF774900ED05CA /* DefaultsKeys.swift in Sources */,
 				BD8CAC5222EDD5A300F311D5 /* NewActivityViewController.swift in Sources */,

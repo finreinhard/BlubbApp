@@ -12,12 +12,12 @@ import EventKitUI
 
 class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
     
-    @IBOutlet weak var counter: UILabel!
     let defaults = UserDefaults.standard
     var notificationController: NotificationController? = nil
     var timerStopped = false
     public var timerMinutes = 60
     public var startDate = Date()
+    var timerView: TimerView? = nil
     
     func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
         controller.dismiss(animated: true)
@@ -36,6 +36,11 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         
         self.notificationController = NotificationController(viewController: self)
         
+        self.timerView = TimerView(frame: CGRect(x: 0, y: 150, width: self.view.bounds.width, height: 150), startDate: self.startDate, plannedMinutes: self.timerMinutes)
+        
+        self.view.addSubview(self.timerView!)
+        self.timerView!.startTimer()
+        
         let backgroundGradient = CAGradientLayer()
         backgroundGradient.colors = [UIColor.systemBlue.cgColor, UIColor.systemGreen.cgColor]
         backgroundGradient.frame = self.view.bounds
@@ -53,13 +58,6 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
             }
 
             let time = Int(Date().timeIntervalSince(self.startDate))
-            
-            if time >= 5 * 60 {
-                self.counter.text = String.localizedStringWithFormat(NSLocalizedString("%d minutes", comment: "Current passed minutes of the activity."), time / 60)
-            } else {
-                self.counter.text = String(format: "%02d:%02d", time / 60, time % 60)
-            }
-            
             
             if time > self.timerMinutes * 60 {
                 backgroundGradient.locations = [0, 0]
