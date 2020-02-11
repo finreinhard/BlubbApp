@@ -21,6 +21,14 @@ class TimerView: UIView {
     let additionalTimeLabel: UILabel
     let switchButton: UIButton
     
+    override var frame: CGRect {
+        didSet {
+            self.timeLabel.frame.size.width = self.frame.width
+            self.additionalTimeLabel.frame.size.width = self.frame.width
+            self.switchButton.frame.size.width = self.frame.width
+        }
+    }
+    
     enum Mode {
         case ELAPSED
         case REMAINING
@@ -61,6 +69,8 @@ class TimerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     
     func configureDateFormatter() {
         self.dateFormatter.unitsStyle = .full

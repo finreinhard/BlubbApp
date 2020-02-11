@@ -31,6 +31,10 @@ class NewActivityViewController: UIViewController, EKEventEditViewDelegate {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.timerView!.frame = CGRect(x: 0, y: 150, width: self.view.bounds.width, height: 150)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
